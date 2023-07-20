@@ -10,6 +10,12 @@ For this project you're supposed to create a rock, paper, and scissors console g
 where the player can play against the computer. 
 */
 
+let computer = getComputerChoice();
+let player = "paper";
+let rounds = 10;
+
+game(computer, player, rounds);
+
 //Funciton to output "Rock" as a string to minimize the posibility of typos
 function getRock() {
   return "Rock";
@@ -68,6 +74,28 @@ function didYouWin(player1, player2) {
   }
 }
 
+//Checks to see if there was a tie
+function wasATie(player1, player2) {
+  if (
+    player1 === getRock().toLowerCase() &&
+    player2 === getRock().toLowerCase()
+  ) {
+    return true;
+  } else if (
+    player1 === getPaper().toLowerCase() &&
+    player2 === getPaper().toLowerCase()
+  ) {
+    return true;
+  } else if (
+    player1 === getScissors().toLowerCase() &&
+    player2 === getScissors().toLowerCase()
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 //Outputs the winning choice. Ex: Rock beats Scissors
 function winningChoice(player1, player2) {
   if (
@@ -101,7 +129,15 @@ function playRound(computerSelection, playerSelection) {
     return `You Lose! ${winningChoice(computer, player)}`;
   } else if (didYouWin(player, computer)) {
     return `You Win! ${winningChoice(player, computer)}`;
+  } else if (wasATie(player, computer)) {
+    return `You Tied!`;
   } else {
     return `Error: Incorrect input. Player input was: "${player}", Computer input was: "${computer}"`;
+  }
+}
+
+function game(computerSelection, playerSelection, numberOfRounds) {
+  for (let i = 0; i < numberOfRounds; i++) {
+    console.log(playRound(computerSelection, playerSelection));
   }
 }

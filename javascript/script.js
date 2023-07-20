@@ -10,11 +10,9 @@ For this project you're supposed to create a rock, paper, and scissors console g
 where the player can play against the computer. 
 */
 
-let computer = getComputerChoice();
-let player = "paper";
-let rounds = 10;
+let rounds = 5;
 
-game(computer, player, rounds);
+game(rounds);
 
 //Funciton to output "Rock" as a string to minimize the posibility of typos
 function getRock() {
@@ -38,9 +36,7 @@ function generateRandomNumber(upperBound) {
 
 //Gets the computer choice by taking a number from 1 to 3 then outputs the correspodning rock, paper, or scissors
 function getComputerChoice() {
-  let number = generateRandomNumber(3);
-
-  switch (number) {
+  switch (generateRandomNumber(3)) {
     case 1:
       return getRock();
     case 2:
@@ -136,8 +132,30 @@ function playRound(computerSelection, playerSelection) {
   }
 }
 
-function game(computerSelection, playerSelection, numberOfRounds) {
-  for (let i = 0; i < numberOfRounds; i++) {
-    console.log(playRound(computerSelection, playerSelection));
+//Validates the users input
+function isInputValid(playerSelection) {
+  switch (playerSelection.toLowerCase()) {
+    case getRock().toLowerCase():
+      return true;
+    case getPaper().toLowerCase():
+      return true;
+    case getScissors().toLowerCase():
+      return true;
+    default:
+      return false;
+  }
+}
+
+//Plays multiple rounds rock, paper, scissors
+function game(rounds) {
+  for (let i = 1; i <= rounds; i++) {
+    let playerSelection = prompt("Enter rock, papaer, or scissors");
+
+    if (!isInputValid(playerSelection)) {
+      console.log(`Input: ${playerSelection} is invalid`);
+      continue;
+    }
+
+    console.log(playRound(getComputerChoice(), playerSelection));
   }
 }

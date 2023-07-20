@@ -31,7 +31,9 @@ function generateRandomNumber(upperBound) {
 }
 
 //Gets the computer choice by taking a number from 1 to 3 then outputs the correspodning rock, paper, or scissors
-function getComputerChoice(number) {
+function getComputerChoice() {
+  let number = generateRandomNumber(3);
+
   switch (number) {
     case 1:
       return getRock();

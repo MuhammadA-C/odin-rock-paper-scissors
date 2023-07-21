@@ -10,9 +10,7 @@ For this project you're supposed to create a rock, paper, and scissors console g
 where the player can play against the computer. 
 */
 
-let rounds = 5;
-
-game(rounds);
+game(5);
 
 //Funciton to output "Rock" as a string to minimize the posibility of typos
 function getRock() {
@@ -132,25 +130,12 @@ function playRound(computerSelection, playerSelection) {
   }
 }
 
-//Validates the users input
-function isInputValid(playerSelection) {
-  switch (playerSelection.toLowerCase()) {
-    case getRock().toLowerCase():
-      return true;
-    case getPaper().toLowerCase():
-      return true;
-    case getScissors().toLowerCase():
-      return true;
-    default:
-      return false;
-  }
-}
-
 //Plays multiple rounds rock, paper, scissors
 function game(rounds) {
-  let wins = 0;
-  let losses = 0;
+  let playerWins = 0;
+  let playerLosses = 0;
   let ties = 0;
+  let computerWins = 0;
 
   for (let i = 1; i <= rounds; i++) {
     let playerSelection = prompt("Enter rock, papaer, or scissors");
@@ -165,10 +150,11 @@ function game(rounds) {
 
     //Keeps track of the score, wins, losses, and ties
     if (roundResult.includes("You Win!")) {
-      wins++;
+      playerWins++;
     }
     if (roundResult.includes("You Lose!")) {
-      losses++;
+      playerLosses++;
+      computerWins++;
     }
     if (roundResult.includes("You Tied!")) {
       ties++;
@@ -178,8 +164,38 @@ function game(rounds) {
     console.log(roundResult);
   }
 
-  //Outputs the overall results for the game
+  whoWonTheGame(playerWins, computerWins);
+  endOfGameResults(rounds, playerWins, playerLosses, ties);
+}
+
+//Validates the users input
+function isInputValid(playerSelection) {
+  switch (playerSelection.toLowerCase()) {
+    case getRock().toLowerCase():
+      return true;
+    case getPaper().toLowerCase():
+      return true;
+    case getScissors().toLowerCase():
+      return true;
+    default:
+      return false;
+  }
+}
+
+//Announces who won the game
+function whoWonTheGame(playerWins, computerWins) {
+  if (playerWins > computerWins) {
+    console.log(`You Won against the Computer!`);
+  } else if (playerWins < computerWins) {
+    console.log(`You Lost against the Computer!`);
+  } else {
+    console.log("You tied against the Computer.");
+  }
+}
+
+//Outputs the overall results for the game
+function endOfGameResults(rounds, playerWins, playerLosses, ties) {
   console.log(
-    `Results: Total Rounds = ${rounds}, Wins = ${wins}, Losses = ${losses}, Ties = ${ties}`
+    `Results: Total Rounds = ${rounds}, Wins = ${playerWins}, Losses = ${playerLosses}, Ties = ${ties}`
   );
 }

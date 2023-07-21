@@ -148,14 +148,38 @@ function isInputValid(playerSelection) {
 
 //Plays multiple rounds rock, paper, scissors
 function game(rounds) {
+  let wins = 0;
+  let losses = 0;
+  let ties = 0;
+
   for (let i = 1; i <= rounds; i++) {
     let playerSelection = prompt("Enter rock, papaer, or scissors");
 
+    //Validates users input
     if (!isInputValid(playerSelection)) {
       console.log(`Input: ${playerSelection} is invalid`);
       continue;
     }
 
-    console.log(playRound(getComputerChoice(), playerSelection));
+    let roundResult = playRound(getComputerChoice(), playerSelection);
+
+    //Keeps track of the score, wins, losses, and ties
+    if (roundResult.includes("You Win!")) {
+      wins++;
+    }
+    if (roundResult.includes("You Lose!")) {
+      losses++;
+    }
+    if (roundResult.includes("You Tied!")) {
+      ties++;
+    }
+
+    //Outputs the result for the round
+    console.log(roundResult);
   }
+
+  //Outputs the overall results for the game
+  console.log(
+    `Results: Total Rounds = ${rounds}, Wins = ${wins}, Losses = ${losses}, Ties = ${ties}`
+  );
 }
